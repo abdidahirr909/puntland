@@ -1,4 +1,3 @@
-```tsx
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -14,7 +13,7 @@ export default function LoginPage() {
         <h1>Owner Login</h1>
 
         <p className="muted">
-          Log in for å administrere Puntland Market.
+          Log in to manage Puntland Market.
         </p>
 
         <form
@@ -38,18 +37,20 @@ export default function LoginPage() {
             required
           />
 
-          <button className="btn btn-primary" type="submit">
+          <button
+            className="btn btn-primary"
+            type="submit"
+          >
             Log in
           </button>
         </form>
 
         <p className="muted" style={{ marginTop: 20 }}>
           <Link href="/">
-            ← Tilbake til butikken
+            ← Back to Store
           </Link>
         </p>
       </div>
     </main>
   );
 }
-```
