@@ -1,2 +1,0 @@
-import Link from "next/link";
-export default function Login(){return <main className="container"><div className="panel" style={{maxWidth:520,margin:"30px auto"}}><h1>Log in</h1><form className="form" action="/api/auth/login" method="post"><input name="email" type="email" placeholder="Email" required/><input name="password" type="password" placeholder="Password" required/><button className="btn btn-primary">Log in</button></form><p className="muted">New customer? <Link href="/register">Create account</Link></p></div></main>}
