@@ -1,28 +1,9 @@
-```tsx
-import { requireRole } from "@/lib/auth";
-import { redirect } from "next/navigation";
-
-export default async function AdminPage() {
-  let user;
-
-  try {
-    user = await requireRole(["ADMIN", "AGENT"]);
-  } catch {
-    redirect("/login");
-  }
-
+export default function AdminPage() {
   return (
-    <main className="container">
+    <main>
       <h1>Admin Dashboard</h1>
-
-      <p>Velkommen, {user.name}</p>
-
-      <p>Rolle: {user.role}</p>
-
-      <p>
-        <a href="/">Til nettbutikken</a>
-      </p>
+      <p>You are logged in.</p>
+      <a href="/">Back to Store</a>
     </main>
   );
 }
-```
