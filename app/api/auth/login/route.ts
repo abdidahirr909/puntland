@@ -12,7 +12,10 @@ export async function POST(req: Request) {
 
     const password = String(formData.get("password") || "");
 
+    console.log("LOGIN DEBUG: email =", email);
+
     if (!email || !password) {
+      console.log("LOGIN DEBUG: missing email or password");
       return NextResponse.redirect(
         new URL("/login?error=missing", req.url)
       );
@@ -22,6 +25,13 @@ export async function POST(req: Request) {
       where: { email },
     });
 
+    console.log(
+      "LOGIN DEBUG: user found =",
+      !!user,
+      "role =",
+      user?.role
+    );
+
     if (!user) {
       return NextResponse.redirect(
         new URL("/login?error=invalid", req.url)
@@ -29,6 +39,8 @@ export async function POST(req: Request) {
     }
 
     const valid = await verifyPassword(password, user.passwordHash);
+
+    console.log("LOGIN DEBUG: password valid =", valid);
 
     if (!valid) {
       return NextResponse.redirect(
@@ -38,13 +50,15 @@ export async function POST(req: Request) {
 
     await createSession(user.id);
 
+    console.log("LOGIN DEBUG: session created");
+
     if (user.role === "ADMIN" || user.role === "AGENT") {
       return NextResponse.redirect(new URL("/admin", req.url));
     }
 
     return NextResponse.redirect(new URL("/", req.url));
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("LOGIN ERROR:", error);
 
     return NextResponse.redirect(
       new URL("/login?error=server", req.url)
