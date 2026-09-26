@@ -52,9 +52,8 @@ export async function POST(req: Request) {
 
     console.log("LOGIN DEBUG: session created");
 
-    if (user.role === "ADMIN" || user.role === "AGENT") {
-      return NextResponse.redirect(new URL("/admin", req.url));
-    }
+   if (user.role === "ADMIN" || user.role === "AGENT") {
+  return NextResponse.redirect(new URL("/admin?login=success", req.url));
 
     return NextResponse.redirect(new URL("/", req.url));
   } catch (error) {
