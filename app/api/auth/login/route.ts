@@ -12,10 +12,7 @@ export async function POST(req: Request) {
 
     const password = String(formData.get("password") || "");
 
-    console.log("LOGIN DEBUG: email =", email);
-
     if (!email || !password) {
-      console.log("LOGIN DEBUG: missing email or password");
       return NextResponse.redirect(
         new URL("/login?error=missing", req.url)
       );
@@ -52,8 +49,11 @@ export async function POST(req: Request) {
 
     console.log("LOGIN DEBUG: session created");
 
-   if (user.role === "ADMIN" || user.role === "AGENT") {
-  return NextResponse.redirect(new URL("/admin?login=success", req.url));
+    if (user.role === "ADMIN" || user.role === "AGENT") {
+      return NextResponse.redirect(
+        new URL("/admin?login=success", req.url)
+      );
+    }
 
     return NextResponse.redirect(new URL("/", req.url));
   } catch (error) {
