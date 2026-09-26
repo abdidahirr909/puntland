@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function CheckoutSuccessPage() {
-  const searchParams =
-    useSearchParams();
+function SuccessContent() {
+  const searchParams = useSearchParams();
 
   const orderNumber =
     searchParams.get("order");
@@ -30,9 +30,7 @@ export default function CheckoutSuccessPage() {
           ✓
         </div>
 
-        <h1>
-          Order Received
-        </h1>
+        <h1>Order Received</h1>
 
         <p
           className="muted"
@@ -82,8 +80,7 @@ export default function CheckoutSuccessPage() {
         <div
           style={{
             display: "flex",
-            justifyContent:
-              "center",
+            justifyContent: "center",
             gap: 10,
             marginTop: 30,
             flexWrap: "wrap",
@@ -105,5 +102,29 @@ export default function CheckoutSuccessPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="container">
+          <div
+            className="panel"
+            style={{
+              maxWidth: 650,
+              margin: "60px auto",
+              textAlign: "center",
+              padding: 40,
+            }}
+          >
+            <h1>Loading...</h1>
+          </div>
+        </main>
+      }
+    >
+      <SuccessContent />
+    </Suspense>
   );
 }
